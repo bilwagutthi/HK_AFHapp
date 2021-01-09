@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if current_user.is_anonymous %}
+    <div class='row'>
+        <div class="col-1"></div>
+        <div class="col-5">
+            <div class="card">
+                <img class="card-img-top" src="../static/images/4 SCENE.svg" alt="Mentors" onerror="this.onerror=null; this.src='/images/4 SCENE.png'">
+                <div class="card-body">
+                    <h4 class="card-title"> Mentor </h4>
+                    <p class="card-text">Help the new generation of women achieve successful careers</p>
+                    <a class="btn btn-primary" href="{{ url_for('mentorLogin') }}">Login</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-5">
+            <div class="card">
+                <img class="card-img-top" src="../static/images/5 SCENE.svg" alt="Find a Mentor">
+                <div class="card-body">
+                    <h4 class="card-title"> Mentee </h4>
+                    <p class="card-text">Get guidance for a successful career path </p>
+                    <a class="btn btn-primary" href="#">Login</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-1"></div>
+    </div>
+
+{% else %}
+    <a href="{{ url_for('logout') }}">Logout</a>
+    <a href="{{ url_for('mentor', id=current_user.id) }}">Profile</a>
+    {% if form %}
+        <form action="" method="post">
+            {{ form.hidden_tag() }}
+            <p> {{ form.title.label}}
+                {{ form.title}}
+                {{ form.body.label }}<br>
+                {{ form.body(cols=32, rows=4) }}<br>
+                {% for error in form.body.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>{{ form.submit() }}</p>
+        </form>
+    {% endif %}
+    {% for post in posts %}
+        {% include '_post.html' %}
+    {% endfor %}
+    {% if prev_url %}
+        <a href="{{ prev_url }}">Newer posts</a>
+    {% endif %}
+    {% if next_url %}
+        <a href="{{ next_url }}">Older posts</a>
+    {% endif %}
+{% endif %}
+
+
+{% endblock %}
