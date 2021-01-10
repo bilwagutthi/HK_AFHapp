@@ -28,7 +28,7 @@ class Mentor(UserMixin,db.Model):
         backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
 
     def __repr__(self):
-        return '<User {}>'.format(self.name)
+        return '<User {} id:>'.format(self.name,str(self.id))
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)

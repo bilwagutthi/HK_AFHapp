@@ -7,7 +7,8 @@
         <div class="col-1"></div>
         <div class="col-5">
             <div class="card">
-                <img class="card-img-top" src="../static/images/4 SCENE.svg" alt="Mentors" onerror="this.onerror=null; this.src='/images/4 SCENE.png'">
+                <img class="card-img-top" src="../static/images/4 SCENE.svg" alt="Mentors"
+                    onerror="this.onerror=null; this.src='/images/4 SCENE.png'">
                 <div class="card-body">
                     <h4 class="card-title"> Mentor </h4>
                     <p class="card-text">Help the new generation of women achieve successful careers</p>
@@ -29,30 +30,42 @@
     </div>
 
 {% else %}
-    <a href="{{ url_for('logout') }}">Logout</a>
-    <a href="{{ url_for('mentor', id=current_user.id) }}">Profile</a>
-    {% if form %}
-        <form action="" method="post">
-            {{ form.hidden_tag() }}
-            <p> {{ form.title.label}}
-                {{ form.title}}
-                {{ form.body.label }}<br>
-                {{ form.body(cols=32, rows=4) }}<br>
-                {% for error in form.body.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-                {% endfor %}
-            </p>
-            <p>{{ form.submit() }}</p>
-        </form>
+
+    <ul class="nav nav-tabs nav-justified">
+        <li class="active"><a href="{{ url_for('index')}}">Home</a></li>
+        <li><a href="{{ url_for('mentor', id=current_user.id) }}">Profile</a></li>
+        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+    </ul>
+    {% if form%}
+    <div class="panel panel-danger">
+        <div class="panel-heading">Post an Article</div>
+        
+        <div class="panel-body">
+            <form action="" method="post">
+                <div class="form-group">
+                    {{ form.hidden_tag() }}
+                    {{ form.title.label}}<br>
+                    {{ form.title}}<br>
+                    {{ form.body.label }}<br>
+                    {{ form.body(cols=100, rows=5) }}<br>
+                    {% for error in form.body.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                    <p>{{ form.submit() }}</p>
+                </div>
+            </form>
+        </div>
+    </div>
     {% endif %}
+
     {% for post in posts %}
-        {% include '_post.html' %}
+    {% include '_post.html' %}
     {% endfor %}
     {% if prev_url %}
-        <a href="{{ prev_url }}">Newer posts</a>
+    <a href="{{ prev_url }}">Newer posts</a>
     {% endif %}
     {% if next_url %}
-        <a href="{{ next_url }}">Older posts</a>
+    <a href="{{ next_url }}">Older posts</a>
     {% endif %}
 {% endif %}
 

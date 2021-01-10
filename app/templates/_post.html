@@ -1,17 +1,21 @@
-<div class="card">
-    <div class="card-body">
-    <h5 class="display-5">{{post.title}}</h5>
-    <p class="display-6">
-        <div class="card" style="width:400px">
-            <img class="card-img-top" src="{{ post.author.avatar(36) }}" alt="Card image" style="width:50px">
-            <div class="card-body">
-                <h4 class="card-title">{{ post.author.name }} </h4>
-                <p class="card-text">{{ post.author.designation}} </p>
-                <a href="{ url_for('mentor', id=post.author.id) }}" class="btn btn-primary">See Profile</a>
-              </div>
-        </div>
-    {{ post.body }}
-    </p>
-    
-        </div>
+<div class="panel panel-danger">
+    <div class="panel-heading">
+        <h5 class="display-5">{{post.title}}</h5>
     </div>
+    <div class="panel-body">
+        
+        <div class="well well-sm" >
+            <img  src="{{ post.author.avatar(36) }}" alt="Card image" style="width:50px;float:left">
+            <span></span>
+            <p class="display-1">
+                <p>{{ post.author.name }} </p>
+                <p>{{ post.author.designation}} </p>
+                <a href="{ url_for('mentor', id=post.author.id) }}" class="btn btn-primary">See Profile</a>
+            </p>
+        </div>
+        
+        <p >
+            {{ post.body }}
+        </p>
+    </div>
+</div>

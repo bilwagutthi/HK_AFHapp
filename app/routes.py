@@ -16,6 +16,7 @@ def index():
         db.session.commit()
         flash('Your post is now live!')
         return redirect(url_for('index'))
+    if current_user.is_active:
         page = request.args.get('page', 1, type=int)
         posts = current_user.followed_posts().paginate(
             page, app.config['POSTS_PER_PAGE'], False)
@@ -27,7 +28,7 @@ def index():
                             posts=posts.items, next_url=next_url,
                             prev_url=prev_url)
     return render_template('index.html')
-
+   
 @app.route('/login', methods=['GET', 'POST'])
 def mentorLogin():
     if current_user.is_authenticated:
